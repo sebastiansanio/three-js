@@ -13,7 +13,7 @@ const mesh = new THREE.Mesh(geometry, material)
 // Position
 mesh.position.x = 1
 // Scale
-mesh.scale.x = 2
+mesh.scale.x = 1
 // Rotation
 mesh.rotation.y = Math.PI * 0.25
 scene.add(mesh)
@@ -35,4 +35,16 @@ scene.add(camera)
 const renderer = new THREE.WebGLRenderer({ canvas })
 renderer.setSize(sizes.width, sizes.height)
 
-renderer.render(scene, camera)
+const clock = new THREE.Clock()
+
+// Animation
+const tick = () => {
+    const elapsedTime = clock.getElapsedTime()
+
+
+    mesh.rotation.y = elapsedTime * Math.PI * 2/5
+    renderer.render(scene, camera)
+    window.requestAnimationFrame(tick)
+}
+
+tick()
